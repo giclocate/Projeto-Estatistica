@@ -73,3 +73,22 @@ def plot_boxplot(data, ylabel, title):
     plt.title(title)
     plt.ylabel(ylabel)
     plt.show()
+def plot_linechart(x, y, xlabel, ylabel, title):
+    """
+    Cria um gráfico de linha.
+    
+    Args:
+        x: Dados para o eixo x.
+        y: Dados para o eixo y.
+        xlabel: Rótulo do eixo x.
+        ylabel: Rótulo do eixo y.
+        title: Título do gráfico.
+        
+    Returns:
+        Exibe o gráfico de linha.
+    """
+    plt.plot(x, y)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.show()
