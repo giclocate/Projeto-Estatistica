@@ -52,12 +52,13 @@ def plot_pie(labels, sizes, title):
     Returns:
         Exibe o gráfico de pizza.
     """
-    plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
+    plt.figure(figsize=(10, 8))
+    plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140, labeldistance=1.2)
     plt.title(title)
     plt.axis('equal')
     plt.show()
 
-def plot_boxplot(data, ylabel, title):
+def plot_boxplot(data, ylabel, title, q1=None, mediana=None, q3=None):
     """
     Cria um gráfico de boxplot.
     
@@ -69,11 +70,24 @@ def plot_boxplot(data, ylabel, title):
     Returns:
         Exibe o gráfico de boxplot.
     """
-    plt.boxplot(data)
+    plt.figure(figsize=(12, 6))
+    box = plt.boxplot(data, vert=True, patch_artist=True)
     plt.title(title)
     plt.ylabel(ylabel)
+    plt.grid(True)
+    
+    # Adicionar linhas horizontais para os quartis, se fornecidos
+    if q1 is not None:
+        plt.axhline(y=q1, color='r', linestyle='--', label='Q1 (25º Percentil)')
+    if mediana is not None:
+        plt.axhline(y=mediana, color='g', linestyle='--', label='Mediana (50º Percentil)')
+    if q3 is not None:
+        plt.axhline(y=q3, color='b', linestyle='--', label='Q3 (75º Percentil)')
+    
+    plt.legend()
     plt.show()
-def plot_linechart(x, y, xlabel, ylabel, title):
+    
+def plot_linechart(x, y, xlabel, ylabel, title, label):
     """
     Cria um gráfico de linha.
     
@@ -87,8 +101,9 @@ def plot_linechart(x, y, xlabel, ylabel, title):
     Returns:
         Exibe o gráfico de linha.
     """
-    plt.plot(x, y)
+    plt.plot(x, y, label=label)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    plt.legend()
     plt.show()
