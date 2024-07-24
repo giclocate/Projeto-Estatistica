@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from graphics import plot_histogram, plot_scatter, plot_pie, plot_boxplot, plot_linechart
+from graphics import plot_histogram, plot_scatter, plot_boxplot, plot_unilateral_test
 
 def main():
     # Leitura dos dados do arquivo
@@ -37,18 +37,16 @@ def main():
     print(f"Segundo Quartil (Q2): {q2:.4f}")
     print(f"Terceiro Quartil (Q3): {q3:.4f}")
     print(f"Quarto Quartil (Q4): {q4:.4f}")
+    
+    # Testes de Hipótese
+    # Teste de Hipótese I - Comandos Simples
+    plot_unilateral_test(data_array, 0.53724, "menor", "Teste de Hipótese - Comandos Simples (H < 0.53724 segundos)")
 
-    # Gráfico de linha
-    plot_linechart(range(len(data_array)), data_array, 'Execução', 'Tempo (segundos)', 'Gráfico de Linha dos Tempos de Execução', label='Tempos de Execução')
+    # Teste de Hipótese III - Comandos Complexos
+    plot_unilateral_test(data_array, 1.7, "maior", "Teste de Hipótese - Comandos Complexos (H > 1.7 segundos)")
 
     # Histograma
     plot_histogram(data_array, 'Tempo (segundos)', 'Frequência', 'Histograma dos Tempos de Execução')
-
-    # Gráfico de pizza (distribuição percentual)
-    bins = [0, 0.5, 1, 1.5, 2, 2.5, 3, np.inf]  # Ajuste os intervalos conforme necessário
-    labels = ['< 0.5s', '0.5-1s', '1-1.5s', '1.5-2s', '2-2.5s', '2.5-3s', '> 3s']
-    data_binned = np.histogram(data_array, bins=bins)[0]
-    plot_pie(labels, data_binned, 'Gráfico de Pizza dos Tempos de Execução')
 
     # Boxplot
     plot_boxplot(data_array, 'Tempo (segundos)', 'Boxplot dos Tempos de Execução', q1, mediana, q3)

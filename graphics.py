@@ -2,6 +2,9 @@
 
 import seaborn as sns
 import matplotlib.pyplot as plt
+import scipy.stats as stats
+import numpy as np
+
 
 def plot_histogram(data, xlabel, ylabel, title):
     """
@@ -38,24 +41,6 @@ def plot_scatter(x, y, xlabel, ylabel, title):
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.show()
-
-def plot_pie(labels, sizes, title):
-    """
-    Cria um gráfico de pizza.
-    
-    Args:
-        labels: Rótulos para cada fatia.
-        sizes: Tamanhos das fatias (percentuais).
-        title: Título do gráfico.
-        
-    Returns:
-        Exibe o gráfico de pizza.
-    """
-    plt.figure(figsize=(10, 8))
-    plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140, labeldistance=1.2)
-    plt.title(title)
-    plt.axis('equal')
     plt.show()
 
 def plot_boxplot(data, ylabel, title, q1=None, mediana=None, q3=None):
@@ -107,3 +92,57 @@ def plot_linechart(x, y, xlabel, ylabel, title, label):
     plt.ylabel(ylabel)
     plt.legend()
     plt.show()
+    
+    
+# Funções para os gráficos
+def plot_unilateral_test(data, media_hipotetica, tipo, titulo):
+    desvio_padrao = np.std(data)
+    media_amostral = np.mean(data)
+    n = len(data)
+    alpha = 0.05
+
+    if tipo == "menor":
+        z = (media_amostral - media_hipotetica) / (desvio_padrao / np.sqrt(n))
+        z_critico = stats.norm.ppf(alpha)
+    elif tipo == "maior":
+        z = (media_amostral - media_hipotetica) / (desvio_padrao / np.sqrt(n))
+        z_critico = stats.norm.ppf(1 - alpha)
+    elif tipo == "diferente":
+        z = (media_amostral - media_hipotetica) / (desvio_padrao / np.sqrt(n))
+        z_critico = stats.norm.ppf(1 - alpha / 2)
+
+    # Gráfico
+    x = np.linspace(min(data), max(data), 1000)
+    y = stats.norm.pdf(x, np.mean(data), np.std(data))
+
+    plt.plot(x, y, label='Distribuição Normal dos Tempos de Resposta')
+    plt.axvline(media_hipotetica, color='r', linestyle='--', label=f'Média Hipotética ({media_hipotetica} seg)')
+    plt.axvline(media_amostral, color='g', linestyle='--', label=f'Média Amostral ({media_amostral:.5f} seg)')
+    
+    if tipo == "menor":
+        plt.fill_betweenx(y, x, media_hipotetica, where=(x < media_hipotetica), color='red', alpha=0.3)
+    elif tipo == "maior":
+        plt.fill_betweenx(y, x, media_hipotetica, where=(x > media_hipotetica), color='red', alpha=0.3)
+    elif tipo == "diferente":
+        plt.fill_betweenx(y, x, media_hipotetica, where=(x > media_hipotetica), color='red', alpha=0.3)
+        plt.fill_betweenx(y, x, media_hipotetica, where=(x < media_hipotetica), color='red', alpha=0.3)
+
+    plt.title(titulo)
+    plt.xlabel('Tempo de Resposta (segundos)')
+    plt.ylabel('Densidade de Probabilidade')
+    plt.legend()
+    plt.show()
+
+    print(f"Valor z: {z:.5f}")
+    if tipo == "menor" or tipo == "maior":
+        print(f"Valor z crítico: {z_critico:.5f}")
+        if (tipo == "menor" and z < z_critico) or (tipo == "maior" and z > z_critico):
+            print("Rejeitamos a hipótese nula (H0)")
+        else:
+            print("Não rejeitamos a hipótese nula (H0)")
+    elif tipo == "diferente":
+        print(f"Valor z crítico: ±{z_critico:.5f}")
+        if abs(z) > z_critico:
+            print("Rejeitamos a hipótese nula (H0)")
+        else:
+            print("Não rejeitamos a hipótese nula (H0)")
