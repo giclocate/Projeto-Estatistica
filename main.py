@@ -45,7 +45,7 @@ def plot_bilateral_test(data, media_hipotetica, titulo):
 def main():
     caminho_arquivo = 'algoritmo.txt'  # Caminho absoluto
     data = carregar_dados(caminho_arquivo)
-    media_hipotetica = 1.13  # Atualizado para 1.13
+    media_hipotetica = 1.13  
     titulo = 'Distribuição Normal com Valor Crítico z'
     plot_bilateral_test(data, media_hipotetica, titulo)
 
