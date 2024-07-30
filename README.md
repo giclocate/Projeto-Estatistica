@@ -15,15 +15,21 @@ Além disso, foi realizado um teste de hipótese para comparar o tempo médio de
   
 ## Estrutura
 #### algoritmo.txt
-Contém o conjunto de dados analisados
+Contém o conjunto de dados analisados.
 
 #### graphics.py
+Contém as funções para a criação dos gráficos.
 
 #### main.py 
-Função principal onde a execução do programa começa
+Função principal onde o programa é executado.
+
+#### README.md
+Breve resumo sobre o estudo.
 
 ## Execução
-1.  
+1.  Possuir o Python instalado no computador
+2.  Instalar as bibliotecas necessárias (Matplotlib, Numpy, Scipy, Seaborn)
+3.  Iniciar o código pelo VSCode
 
 ## Contribuidores
 </br>Amós Kinsley Barbosa de Santana - akbs@cin.ufpe.br</br> 
