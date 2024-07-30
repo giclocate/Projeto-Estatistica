@@ -26,6 +26,6 @@ Função principal onde a execução do programa começa
 1.  
 
 ## Contribuidores
-Amós Kinsley Barbosa de Santana - akbs@cin.ufpe.br 
-Giovanna Clócate Cavalcante de Almeida - lss11@cin.ufpe.br 
-Lucas dos Santos da Silva - lss11@cin.ufpe.br
+</br>Amós Kinsley Barbosa de Santana - akbs@cin.ufpe.br</br> 
+</br>Giovanna Clócate Cavalcante de Almeida - lss11@cin.ufpe.br</br> 
+</br>Lucas dos Santos da Silva - lss11@cin.ufpe.br</br>
